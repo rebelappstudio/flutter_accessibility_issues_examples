@@ -14,6 +14,10 @@ class _DisablingAnimationsPageState extends State<DisablingAnimationsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final areAnimationsDisabledSystemWide =
+        MediaQuery.of(context).disableAnimations;
+    final areAnimationsDisabledInDebugMode = debugSemanticsDisableAnimations;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Disabling animations'),
@@ -24,24 +28,22 @@ class _DisablingAnimationsPageState extends State<DisablingAnimationsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Animations disabled system-wide? ${MediaQuery.of(context).disableAnimations}',
+              'Animations disabled system-wide? $areAnimationsDisabledSystemWide',
             ),
             const SizedBox(height: 32),
             Text(
-              'Animations disabled in debug mode? $debugSemanticsDisableAnimations',
+              'Animations disabled in debug mode? $areAnimationsDisabledInDebugMode',
             ),
             const SizedBox(height: 32),
             TextButton(
-              onPressed: () {
-                debugSemanticsDisableAnimations =
-                    !(debugSemanticsDisableAnimations ?? false);
-                setState(() {});
-              },
+              onPressed: _toggleAnimationsFlag,
               child: const Text('Toggle debugSemanticsDisableAnimations flag'),
             ),
             const SizedBox(height: 24),
             Row(
               children: [
+                // A simple animation that rotates a Flutter logo to see how
+                // animations flag affects it
                 AnimatedRotation(
                   turns: _turns,
                   duration: const Duration(seconds: 2),
@@ -49,6 +51,7 @@ class _DisablingAnimationsPageState extends State<DisablingAnimationsPage> {
                     label: 'Press to rotate',
                     child: InkWell(
                       onTap: () {
+                        // Increment the number of turns to rotate the logo
                         setState(() => _turns++);
                       },
                       child: const FlutterLogo(size: 48),
@@ -58,7 +61,7 @@ class _DisablingAnimationsPageState extends State<DisablingAnimationsPage> {
                 const SizedBox(width: 16),
                 const Expanded(
                   child: Text(
-                    '⃪  Press to rotate according to current animation settings',
+                    '⃪  Press to rotate. Note how behavior changes depending on current animation settings',
                   ),
                 ),
               ],
@@ -67,5 +70,14 @@ class _DisablingAnimationsPageState extends State<DisablingAnimationsPage> {
         ),
       ),
     );
+  }
+
+  /// Toggle the flag that disables animations in debug mode
+  void _toggleAnimationsFlag() {
+    final areAnimationsOff = debugSemanticsDisableAnimations ?? false;
+    debugSemanticsDisableAnimations = !areAnimationsOff;
+
+    // Schedule a new frame to update the UI
+    setState(() {});
   }
 }

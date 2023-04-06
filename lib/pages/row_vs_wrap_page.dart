@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_accessibility_issues_examples/widgets/section.dart';
 
 class RowVsWrapPage extends StatelessWidget {
   const RowVsWrapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // List of children to be displayed in a Row or a Wrap. It's the same list
+    // of children for both Row and Wrap but the behavior is different
     final children = [
       Expanded(
         child: CheckboxListTile(
@@ -32,6 +35,10 @@ class RowVsWrapPage extends StatelessWidget {
       ),
     ];
 
+    // The maximum width of the Row or Wrap. This is used to limit the width of
+    // the container to demonstrate the issue
+    const maxContainerWidth = 200.0;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Row vs Wrap'),
@@ -41,21 +48,15 @@ class RowVsWrapPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Text is unreadable:'),
+            const Section('Text is unreadable:'),
             const SizedBox(height: 8),
             SizedBox(
-              width: 200,
+              width: maxContainerWidth,
               child: Row(children: children),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 48,
-                bottom: 8,
-              ),
-              child: Text('Items wrap and text is more readable:'),
-            ),
+            const Section('Items wrap and text is more readable:'),
             SizedBox(
-              width: 200,
+              width: maxContainerWidth,
               child: Wrap(children: children),
             ),
           ],

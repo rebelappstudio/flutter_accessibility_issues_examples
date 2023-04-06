@@ -7,6 +7,7 @@ import 'small_tap_areas_page.dart';
 import 'text_cutting_off_page.dart';
 import 'text_overflow_page.dart';
 
+/// Main menu page
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -20,54 +21,36 @@ class HomePage extends StatelessWidget {
         children: [
           ListTile(
             title: const Text('Text overflow'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const TextOverflowPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const TextOverflowPage()),
           ),
           ListTile(
             title: const Text('Row vs Wrap'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const RowVsWrapPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const RowVsWrapPage()),
           ),
           ListTile(
             title: const Text('Text cutting off'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const TextCuttingOffPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const TextCuttingOffPage()),
           ),
           ListTile(
             title: const Text('Small tap areas'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const SmallTapAreasPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const SmallTapAreasPage()),
           ),
           ListTile(
             title: const Text('Disabling animations'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const DisablingAnimationsPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const DisablingAnimationsPage()),
           ),
           ListTile(
             title: const Text('Semantic labels'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const SemanticLabelsPage(),
-              ),
-            ),
+            onTap: () => _openPage(context, const SemanticLabelsPage()),
           ),
         ],
       ),
+    );
+  }
+
+  void _openPage(BuildContext context, Widget page) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => page),
     );
   }
 }

@@ -14,6 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  /// Indicated whether the semantics debugger overlay should be shown
   bool _showSemanticsDebugger = false;
 
   @override
@@ -21,16 +22,21 @@ class _AppState extends State<App> {
     return MaterialApp(
       showSemanticsDebugger: _showSemanticsDebugger,
       title: 'Accessibility issues',
+      builder: (_, child) {
+        // Let accessibility_tools package do its work
+        return AccessibilityTools(child: child);
+      },
       home: Column(
         children: [
           Material(
+            // Switch to toggle the semantics debugger overlay
             child: SwitchListTile(
               controlAffinity: ListTileControlAffinity.leading,
+              value: _showSemanticsDebugger,
+              title: const Text('Toggle semantics debugger overlay'),
               onChanged: (value) {
                 setState(() => _showSemanticsDebugger = value);
               },
-              value: _showSemanticsDebugger,
-              title: const Text('Toggle semantics debugger overlay'),
             ),
           ),
           const Expanded(
@@ -38,7 +44,6 @@ class _AppState extends State<App> {
           ),
         ],
       ),
-      builder: (_, child) => AccessibilityTools(child: child),
     );
   }
 }

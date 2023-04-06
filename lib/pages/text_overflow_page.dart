@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_accessibility_issues_examples/widgets/section.dart';
 
 class TextOverflowPage extends StatelessWidget {
   const TextOverflowPage({super.key});
@@ -19,13 +20,7 @@ class TextOverflowPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 48,
-                bottom: 8,
-              ),
-              child: Text("Text can't wrap:"),
-            ),
+            const Section("Text can't wrap:"),
             Container(
               color: Colors.black12,
               width: 100,
@@ -36,13 +31,7 @@ class TextOverflowPage extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 48,
-                bottom: 8,
-              ),
-              child: Text('Text wraps nicely:'),
-            ),
+            const Section("Text doesn't overflow and wraps instead:"),
             Container(
               color: Colors.black12,
               width: 100,
